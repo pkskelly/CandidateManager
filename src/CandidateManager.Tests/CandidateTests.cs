@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Text.Json;
 using CandidateManager.Core;
+using CandidateManager.Core.Extensions;
 using CandidateManager.Core.Interfaces;
 using CandidateManager.Core.Processors;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -11,33 +12,33 @@ namespace CandidateManager.Tests
     [TestClass]
     public class CandidateTests
     {
-        // [TestMethod]
-        // public void ShouldThrowWithEmptyName()
-        // {
-        //     Assert.ThrowsException<ArgumentException>(() => new Candidate("", "pskelly@threewill.com", "999-0000", "ThreeWill"));
-        //     Assert.ThrowsException<ArgumentNullException>(() => new Candidate(null, "pskelly@threewill.com", "999-0000", "ThreeWill"));
-        // }
+        [TestMethod]
+        public void ShouldThrowWithEmptyName()
+        {
+            Assert.ThrowsException<ArgumentException>(() => new Candidate("", "pskelly@threewill.com", "999-0000","ThreeWill"));
+            Assert.ThrowsException<ArgumentNullException>(() => new Candidate(null, "pskelly@threewill.com","999-0000","ThreeWill"));
+        }
 
-        // [TestMethod]
-        // public void ShouldThrowWithEmptyOrNullPhone()
-        // {
-        //     Assert.ThrowsException<ArgumentException>(() => new Candidate("Pete Skelly", "pskelly@threewill.com", "", "ThreeWill"));
-        //     Assert.ThrowsException<ArgumentNullException>(() => new Candidate("Pete Skelly", "pskelly@threewill.com", null, "ThreeWill"));
-        // }
+        [TestMethod]
+        public void ShouldThrowWithEmptyOrNullPhone()
+        {
+            Assert.ThrowsException<ArgumentException>(() => new Candidate("Pete Skelly",  "", "999-0000", "ThreeWill"));
+            Assert.ThrowsException<ArgumentNullException>(() => new Candidate("Pete Skelly", null, "999-0000", "ThreeWill"));
+        }
 
-        // [TestMethod]
-        // public void ShouldThrowWithNullOrEmptyEmail()
-        // {
-        //     Assert.ThrowsException<ArgumentException>(() => new Candidate("Pete Skelly", "", "555-9999", "ThreeWill"));
-        //     Assert.ThrowsException<ArgumentNullException>(() => new Candidate("Pete Skelly", null, "555-9999", "ThreeWill"));
-        // }
+        [TestMethod]
+        public void ShouldThrowWithNullOrEmptyEmail()
+        {
+            Assert.ThrowsException<ArgumentException>(() => new Candidate("Pete Skelly", "", "555-9999", "ThreeWill"));
+            Assert.ThrowsException<ArgumentNullException>(() => new Candidate("Pete Skelly", null, "555-9999", "ThreeWill"));
+        }
 
-        // [TestMethod]
-        // public void ShouldThrowWithNullOrEmptyCompany()
-        // {
-        //     Assert.ThrowsException<ArgumentException>(() => new Candidate("Pete Skelly", "", "555-9999", ""));
-        //     Assert.ThrowsException<ArgumentNullException>(() => new Candidate("Pete Skelly", null, "555-9999", null));
-        // }
+        [TestMethod]
+        public void ShouldThrowWithNullOrEmptyCompany()
+        {
+            Assert.ThrowsException<ArgumentException>(() => new Candidate("Pete Skelly", "", "555-9999", ""));
+            Assert.ThrowsException<ArgumentNullException>(() => new Candidate("Pete Skelly", null, "555-9999", null));
+        }
 
         [TestMethod]
         public void DeserilaizesThreeWillIngest()
@@ -61,11 +62,7 @@ namespace CandidateManager.Tests
             string curDir = Directory.GetCurrentDirectory();
             string filePath = Path.Combine(curDir, "../../../ThompsonFlowInput.json");
             string flowMessage = File.ReadAllText(filePath);
-            JsonSerializerOptions options = new() { 
-                WriteIndented = true,
-                PropertyNameCaseInsensitive = true
-            };
-            FlowIngest flowInput = JsonSerializer.Deserialize<FlowIngest>(flowMessage,options);
+            FlowIngest flowInput = flowMessage.FromJson<FlowIngest>();
             Assert.AreEqual(flowInput.Recruiter, "pskelly@threewill.com");
             Assert.AreEqual(flowInput.Company, "Thompson");
             Assert.AreEqual(flowInput.FileName, "5085578f-e0c1-4dd6-9d5e-80b7d2615d66.doc");            
@@ -77,11 +74,7 @@ namespace CandidateManager.Tests
             string curDir = Directory.GetCurrentDirectory();
             string filePath = Path.Combine(curDir, "../../../HireNetworksFloInput.json");
             string flowMessage = File.ReadAllText(filePath);
-            JsonSerializerOptions options = new() { 
-                WriteIndented = true,
-                PropertyNameCaseInsensitive = true
-            };
-            FlowIngest flowInput = JsonSerializer.Deserialize<FlowIngest>(flowMessage,options);
+            FlowIngest flowInput = flowMessage.FromJson<FlowIngest>();
             Assert.AreEqual(flowInput.Recruiter, "pskelly@threewill.com");
             Assert.AreEqual(flowInput.Company, "HireNetworks");
             Assert.AreEqual(flowInput.FileName, "87048d1a-985a-4705-8eed-6f1562a98ea3.docx");            
@@ -94,14 +87,10 @@ namespace CandidateManager.Tests
             string curDir = Directory.GetCurrentDirectory();
             string filePath = Path.Combine(curDir, "../../../ThreeWillFlowInput.json");
             string flowMessage = File.ReadAllText(filePath);
-            JsonSerializerOptions options = new() { 
-                WriteIndented = true,
-                PropertyNameCaseInsensitive = true
-            };
-            FlowIngest flowInput = JsonSerializer.Deserialize<FlowIngest>(flowMessage,options);
-            Assert.AreEqual(flowInput.Recruiter, "pskelly@threewill.com");
-            Assert.AreEqual(flowInput.Company, "ThreeWill");
-            Assert.AreEqual(flowInput.FileName, "8e294c8c-b3a2-43f8-8d91-51acf75fc5e4.docx");     
+            FlowIngest flowInput = flowMessage.FromJson<FlowIngest>();
+           Assert.AreEqual("pskelly@threewill.com", flowInput.Recruiter);
+            Assert.AreEqual("ThreeWill", flowInput.Company);
+            Assert.AreEqual("8e294c8c-b3a2-43f8-8d91-51acf75fc5e4.docx", flowInput.FileName);        
 
             ICandidateProcessor processor = new CandidateProcessorFactory().CreateCandidateProcessor(flowInput.Company);
 
@@ -114,35 +103,26 @@ namespace CandidateManager.Tests
            
         }
 
-        // [TestMethod]
-        // public void DoesDeserilaizeThompsonCandidateChannel()
-        // {
-        //     Candidate candidate = new Candidate();
-        //     candidate.Name = "Pete Skelly";
-        //     candidate.Company = CandidateChannel.Thompson;
-        //     candidate.EmailAddress = "pskelly@acme.com";
-        //     candidate.Phone = "555-1212";
-        //     string json = JsonConvert.SerializeObject(candidate);
-        //     Assert.IsNotNull(json);
-        //     Assert.AreEqual(CandidateChannel.Thompson, candidate.Company);
-        //     Candidate output = JsonConvert.DeserializeObject<Candidate>(json);
-        //     Assert.AreEqual(CandidateChannel.Thompson, output.Company);
-        // }
+        [TestMethod]
+        public void DoesDeserilaizeThompsonCandidate()
+        {
+            string curDir = Directory.GetCurrentDirectory();
+            string filePath = Path.Combine(curDir, "../../../ThompsonFlowInput.json");
+            string flowMessage = File.ReadAllText(filePath);
+            FlowIngest flowInput = flowMessage.FromJson<FlowIngest>();
+            Assert.AreEqual("pskelly@threewill.com", flowInput.Recruiter);
+            Assert.AreEqual("Thompson", flowInput.Company);
+            Assert.AreEqual("5085578f-e0c1-4dd6-9d5e-80b7d2615d66.doc", flowInput.FileName);     
 
-        // [TestMethod]
-        // public void DoesDeserilaizeMatrixCandidateChannel()
-        // {
-        //     Candidate candidate = new Candidate();
-        //     candidate.Name = "Pete Skelly";
-        //     candidate.Company = CandidateChannel.Matrix;
-        //     candidate.EmailAddress = "pskelly@acme.com";
-        //     candidate.Phone = "555-1212";
-        //     string json = JsonConvert.SerializeObject(candidate);
-        //     Assert.IsNotNull(json);
-        //     Assert.AreEqual(CandidateChannel.Matrix, candidate.Company);
-        //     Candidate output = JsonConvert.DeserializeObject<Candidate>(json);
-        //     Assert.AreEqual(CandidateChannel.Matrix, output.Company);
-        // }
+            ICandidateProcessor processor = new CandidateProcessorFactory().CreateCandidateProcessor(flowInput.Company);
+
+            Assert.IsInstanceOfType(processor, typeof(ThompsonCandidateProcessor));       
+            Candidate candidate = processor.Process(flowInput.BodyHtml);
+            Assert.AreEqual("Thompson", candidate.Company);
+            Assert.AreEqual("Sean Jones", candidate.Name);
+            Assert.AreEqual("(508) 410-5429", candidate.Phone);
+            Assert.AreEqual("seanj516@gmail.com", candidate.EmailAddress);          
+        }
 
         // [TestMethod]
         // public void DoesDeserilaizeHireNetworksCandidateChannel()

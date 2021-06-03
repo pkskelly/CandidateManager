@@ -3,20 +3,45 @@ using Ardalis.GuardClauses;
 
 namespace CandidateManager.Core
 {
-    public class Candidate
+    public record Candidate
     {
-        public Candidate()
-        {
-        }
-        
-        public string Name { get; set; }
-        public string EmailAddress { get; set; }
-        public string Company { get; set; }
-        public string Phone { get; set; }
+        private readonly string _name;
+        private readonly string _emailAddress;
+        private readonly string _company;
+        private readonly string _phone;
 
-        public override string ToString()
+        public Candidate(string name, string emailAddress, string phone, string company)
         {
-            return $"Name: {Name}; Company: {Company.ToString()}; Email: {EmailAddress};  Phone: {Phone}";
+            Name = name;
+            Phone = phone;
+            EmailAddress = emailAddress;
+            Company = company;
         }
+
+        public string Name
+        {
+            get => _name;
+            init => _name = (Guard.Against.NullOrEmpty(value, nameof(Name), $"{nameof(Name)} must be provided!") ?? value);
+        }
+        public string EmailAddress
+        {
+            get => _emailAddress;
+            init => _emailAddress = (Guard.Against.NullOrEmpty(value, nameof(EmailAddress), $"{nameof(EmailAddress)} must be provided!") ?? value);
+        }
+        public string Company
+        {
+            get => _company;
+            init => _company = (Guard.Against.NullOrEmpty(value, nameof(Company), $"{nameof(Company)} must be provided!") ?? value);
+        }
+
+        public string Phone
+        {
+            get => _phone;
+            init => _phone = (Guard.Against.NullOrEmpty(value, nameof(Phone), $"{nameof(Phone)} must be provided!") ?? value);
+        }
+
     }
+
+
+
 }

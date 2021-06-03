@@ -2,6 +2,7 @@ namespace CandidateManager.Core
 {
     public class Constants
     {
+        
        // Company constants
         public const string THOMPSON_CANDIDATE_NAME = "Candidate Name";
         public const string HIRENETWORKS_CANDIDATE_NAME = "Candidate Name";
