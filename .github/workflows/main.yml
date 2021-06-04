@@ -21,6 +21,7 @@ jobs:
         dotnet-version: ${{ env.DOTNET_VERSION }}
 
     - name: List Runtimes and Versions
+      shell: bash
       run: |
         dotnet --list-runtimes
         dotnet --list-sdks
