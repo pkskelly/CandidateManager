@@ -4,6 +4,12 @@ on:
   push:
     branches: [ main ]
 
+
+  env:
+    AZURE_FUNCTIONAPP_NAME: CandidateManager.Functions  # set this to your application's name
+    AZURE_FUNCTIONAPP_PACKAGE_PATH: './src/CandidateManager.Functions'    # set this to the path to your web app project, defaults to the repository root
+    DOTNET_VERSION: '5.0.x'              
+
 jobs:
   build:
 
@@ -12,10 +18,10 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: Setup .NET
+    - name: Setup .NET ${{ env.DOTNET_VERSION }} Environment
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 5.0.x
+        dotnet-version: ${{ env.DOTNET_VERSION }}
 
     - name: List Runtimes
       shell: bash
