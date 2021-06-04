@@ -20,14 +20,6 @@ jobs:
       with:
         dotnet-version: ${{ env.DOTNET_VERSION }}
 
-    - name: 'List Runtimes and Versions'
-      shell: bash
-      run: |
-        pushd './${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}'  
-        dotnet --list-runtimes
-        dotnet --list-sdks
-        popd
-
     - name: 'Resolve Project Dependencies Using Dotnet'
       shell: bash
       run: |
