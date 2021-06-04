@@ -10,7 +10,7 @@ namespace CandidateManager.Core.Processors
                 return (ICandidateProcessor)Activator.CreateInstance(Type.GetType($"CandidateManager.Core.Processors.{company}CandidateProcessor"));
             }
             catch {
-                throw new ArgumentException("Factory generator paramter invalid!", company.ToString());
+                throw new ArgumentException($"{nameof(CandidateProcessorFactory)} generator parameter invalid!", company.ToString());
             }
         }
     }

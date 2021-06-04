@@ -13,7 +13,7 @@ namespace CandidateManager.Core.Processors
             var name = ScraperUtilities.GetContentValue(readableElements, Constants.THREEWILL_CANDIDATE_NAME);
             var emailAddress = ScraperUtilities.GetContentValue(readableElements, Constants.CANDIDATE_EMAIL_FIELD);
             var phone = ScraperUtilities.GetContentValue(readableElements, Constants.THREEWILL_CANDIDATE_PHONE);
-            var company = "ThreeWill";
+            var company = Constants.THREEWILL_COMPANY_NAME;
             Candidate newCandidate = new Candidate(name, emailAddress, phone, company);
 
             return newCandidate;    
