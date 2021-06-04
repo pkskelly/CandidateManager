@@ -92,7 +92,7 @@ namespace CandidateManager.Tests
             Assert.AreEqual("ThreeWill", flowInput.Company);
             Assert.AreEqual("8e294c8c-b3a2-43f8-8d91-51acf75fc5e4.docx", flowInput.FileName);        
 
-            ICandidateProcessor processor = new CandidateProcessorFactory().CreateCandidateProcessor(flowInput.Company);
+            ICandidateProcessor processor = CandidateProcessorFactory.CreateCandidateProcessor(flowInput.Company);
 
             Assert.IsInstanceOfType(processor, typeof(ThreeWillCandidateProcessor));       
             Candidate candidate = processor.Process(flowInput.BodyHtml);
@@ -114,7 +114,7 @@ namespace CandidateManager.Tests
             Assert.AreEqual("Thompson", flowInput.Company);
             Assert.AreEqual("5085578f-e0c1-4dd6-9d5e-80b7d2615d66.doc", flowInput.FileName);     
 
-            ICandidateProcessor processor = new CandidateProcessorFactory().CreateCandidateProcessor(flowInput.Company);
+            ICandidateProcessor processor = CandidateProcessorFactory.CreateCandidateProcessor(flowInput.Company);
 
             Assert.IsInstanceOfType(processor, typeof(ThompsonCandidateProcessor));       
             Candidate candidate = processor.Process(flowInput.BodyHtml);
@@ -135,7 +135,7 @@ namespace CandidateManager.Tests
             Assert.AreEqual("Stratfield", flowInput.Company);
             Assert.AreEqual("8b4a016a-a33d-416d-811c-204c4795b86a.docx", flowInput.FileName); 
 
-            ICandidateProcessor processor = new CandidateProcessorFactory().CreateCandidateProcessor(flowInput.Company);
+            ICandidateProcessor processor = CandidateProcessorFactory.CreateCandidateProcessor(flowInput.Company);
             Assert.IsInstanceOfType(processor, typeof(StratfieldCandidateProcessor));       
             Candidate candidate = processor.Process(flowInput.BodyHtml);
             Assert.AreEqual("Stratfield", candidate.Company);

@@ -7,8 +7,12 @@
     <_FunctionsSkipCleanOutput>true</_FunctionsSkipCleanOutput>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.Azure.Functions.Worker.Sdk" Version="1.0.1" OutputItemType="Analyzer"/>
+    <PackageReference Include="Microsoft.Azure.Functions.Worker.Extensions.Storage" Version="4.0.4" />
+    <PackageReference Include="Microsoft.Azure.Functions.Worker.Sdk" Version="1.0.1" OutputItemType="Analyzer" />
     <PackageReference Include="Microsoft.Azure.Functions.Worker" Version="1.0.0" />
+  </ItemGroup>
+    <ItemGroup>
+    <ProjectReference Include="..\CandidateManager.Core\CandidateManager.Core.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Update="host.json">

@@ -5,7 +5,7 @@ namespace CandidateManager.Core.Processors
 {
     public class CandidateProcessorFactory
     {
-        public ICandidateProcessor CreateCandidateProcessor(string company) {
+        public static ICandidateProcessor CreateCandidateProcessor(string company) {
             try {
                 return (ICandidateProcessor)Activator.CreateInstance(Type.GetType($"CandidateManager.Core.Processors.{company}CandidateProcessor"));
             }
