@@ -30,7 +30,8 @@ namespace CandidateManager.Functions
             logger.LogInformation($"Name: {candidate.Name}");
             logger.LogInformation($"Email Address: {candidate.EmailAddress}");
             logger.LogInformation($"Phone: {candidate.Phone}");
-            logger.LogInformation($"Company: {candidate.Company}");
+
+            logger.LogInformation($"Blob Name: {flowInput.FileName}");
             logger.LogInformation($"Returning flowOutput!");
             //added app offline settings in vsts
             FlowOutput flowOutput = new FlowOutput() { FlowId = flowInput.FlowId, Company = flowInput.Company, Recruiter = flowInput.Recruiter, FileName = flowInput.FileName, Candidate = candidate };

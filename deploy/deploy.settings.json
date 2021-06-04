@@ -1,0 +1,18 @@
+{   
+    "TenantId":"[your-tenant-id]",
+    "AzureSubscription": "[your-subscription-id]",
+    "FunctionAppName":"prod-candidatemgr001",
+    "FunctionAppPlanSuffix":"-plan",
+    "FunctionAppSuffix":"-funcapp",
+    "ResourceGroupPrefix": "rg-",
+    "AppInsightsSuffix": "-ai",
+    "ResourceLocation":"eastus",
+    "ResourceOwner":"Pete Skelly",
+    "FunctionsVersion": 3,
+    "StorageSuffix":"stor",
+    "CandidateHtmlQueue": "candidate-html",
+    "CandidateQueue": "candidates",
+    "ResumesContainer": "resumes"
+}
+  
+  
