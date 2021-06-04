@@ -124,155 +124,24 @@ namespace CandidateManager.Tests
             Assert.AreEqual("seanj516@gmail.com", candidate.EmailAddress);          
         }
 
-        // [TestMethod]
-        // public void DoesDeserilaizeHireNetworksCandidateChannel()
-        // {
-        //     Candidate candidate = new Candidate();
-        //     candidate.Name = "Pete Skelly";
-        //     candidate.Company = CandidateChannel.HireNetworks;
-        //     candidate.EmailAddress = "pskelly@acme.com";
-        //     candidate.Phone = "555-1212";
-        //     string json = JsonConvert.SerializeObject(candidate);
-        //     Assert.IsNotNull(json);
-        //     Assert.AreEqual(CandidateChannel.HireNetworks, candidate.Company);
-        //     Candidate output = JsonConvert.DeserializeObject<Candidate>(json);
-        //     Assert.AreEqual(CandidateChannel.HireNetworks, output.Company);
-        // }
+        [TestMethod]
+        public void DoesDeserilaizeStratfieldCandidate()
+        {
+            string curDir = Directory.GetCurrentDirectory();
+            string filePath = Path.Combine(curDir, "../../../StratfieldFlowInput.json");
+            string flowMessage = File.ReadAllText(filePath);
+            FlowIngest flowInput = flowMessage.FromJson<FlowIngest>();
+            Assert.AreEqual("ebrady@stratfieldconsulting.com", flowInput.Recruiter);
+            Assert.AreEqual("Stratfield", flowInput.Company);
+            Assert.AreEqual("8b4a016a-a33d-416d-811c-204c4795b86a.docx", flowInput.FileName); 
 
-        // [TestMethod]
-        // public void DoesReturnThompsonCandidateProcessor()
-        // {
-        //     Candidate candidate = new Candidate();
-        //     candidate.Name = "Pete Skelly";
-        //     candidate.Company = CandidateChannel.Thompson;
-        //     candidate.EmailAddress = "pskelly@acme.com";
-        //     candidate.Phone = "555-1212";
-        //     ICandidateProcessor processor = new CandidateProcessorFacotry().CreateCandidateProcessor(candidate.Company);
-        //     Assert.IsNotNull(processor);
-        //     Assert.IsInstanceOfType(processor, typeof(ThompsonTechCandidateProcessor));
-        // }
-
-        // [TestMethod]
-        // public void DoesReturnThreeWillCandidateProcessor()
-        // {
-        //     Candidate candidate = new Candidate();
-        //     candidate.Name = "Pete Skelly";
-        //     candidate.Company = CandidateChannel.ThreeWill;
-        //     candidate.EmailAddress = "pskelly@acme.com";
-        //     candidate.Phone = "555-1212";
-        //     ICandidateProcessor processor = new CandidateProcessorFacotry().CreateCandidateProcessor(candidate.Company);
-        //     Assert.IsNotNull(processor);
-        //     Assert.IsInstanceOfType(processor, typeof(ThreeWillCandidateProcessor));
-        // }
-
-        // [TestMethod]
-        // public void DoesReturnMatrixCandidateProcessor()
-        // {
-        //     Candidate candidate = new Candidate();
-        //     candidate.Name = "Pete Skelly";
-        //     candidate.Company = CandidateChannel.Matrix;
-        //     candidate.EmailAddress = "pskelly@acme.com";
-        //     candidate.Phone = "555-1212";
-        //     ICandidateProcessor processor = new CandidateProcessorFacotry().CreateCandidateProcessor(candidate.Company);
-        //     Assert.IsNotNull(processor);
-        //     Assert.IsInstanceOfType(processor, typeof(MatrixCandidateProcessor));
-        // }
-
-        // [TestMethod]
-        // public void DoesReturnHireNetworksCandidateProcessor()
-        // {
-        //     Candidate candidate = new Candidate();
-        //     candidate.Name = "Pete Skelly";
-        //     candidate.Company = CandidateChannel.HireNetworks;
-        //     candidate.EmailAddress = "pskelly@acme.com";
-        //     candidate.Phone = "555-1212";
-        //     ICandidateProcessor processor = new CandidateProcessorFacotry().CreateCandidateProcessor(candidate.Company);
-        //     Assert.IsNotNull(processor);
-        //     Assert.IsInstanceOfType(processor, typeof(HireNetworksCandidateProcessor));
-        // }
-
-        // [TestMethod]
-        // public void ScraperUtiltiesGetTextElements()
-        // {
-        //     string curDir = Directory.GetCurrentDirectory();
-        //     string filePath = Path.Combine(curDir, "..\\..\\ThreeWillFlowInput.json");
-        //     string flowMessage = File.ReadAllText(filePath);
-
-        //     FlowIngest flowInput = JsonConvert.DeserializeObject<FlowIngest>(flowMessage);
-        //     List<string> textElements = ScraperUtilities.GetTextElements(flowInput.BodyHtml);
-        //     Assert.AreEqual(85, textElements.Count);
-
-        // }
-
-
-        // [TestMethod]
-        // public void DoesDeserilaizeThreeWillCandidateFlowMessage()
-        // {
-        //     CandidateChannel TEST_COMPANY = CandidateChannel.ThreeWill;
-        //     string TEST_NAME = "Timm Peddie";
-        //     string TEST_EMAIL = "timm_peddie@yahoo.com";
-        //     string TEST_PHONE = "(415) 484-3004";
-
-        //     string curDir = Directory.GetCurrentDirectory();
-        //     string filePath = Path.Combine(curDir, "..\\..\\ThreeWillFlowInput.json");
-        //     string flowMessage = File.ReadAllText(filePath);
-
-        //     FlowIngest flowInput = JsonConvert.DeserializeObject<FlowIngest>(flowMessage);
-        //     ICandidateProcessor processor = new CandidateProcessorFacotry().CreateCandidateProcessor(flowInput.Company);
-           
-        //     Assert.IsInstanceOfType(processor, typeof(ThreeWillCandidateProcessor));
-        //     Candidate candidate = processor.Process(flowInput.BodyHtml);
-        //     Assert.AreEqual(TEST_COMPANY, candidate.Company);
-        //     Assert.AreEqual(TEST_NAME, candidate.Name);
-        //     Assert.AreEqual(TEST_PHONE, candidate.Phone);
-        //     Assert.AreEqual(TEST_EMAIL, candidate.EmailAddress);
-        // }
-
-
-
-        // [TestMethod]
-        // public void DoesDeserilaizeThompsonCandidateFlowMessage()
-        // {
-        //     CandidateChannel TEST_COMPANY = CandidateChannel.Thompson;
-        //     string TEST_NAME = "Sean Jones";
-        //     string TEST_EMAIL = "seanj516@gmail.com";
-        //     string TEST_PHONE = "(508) 410-5429";
-
-        //     string curDir = Directory.GetCurrentDirectory();
-        //     string filePath = Path.Combine(curDir, "..\\..\\ThompsonFlowInput.json");
-        //     string flowMessage = File.ReadAllText(filePath);
-
-        //     FlowIngest flowInput = JsonConvert.DeserializeObject<FlowIngest>(flowMessage);
-        //     ICandidateProcessor processor = new CandidateProcessorFacotry().CreateCandidateProcessor(flowInput.Company);
-
-        //     Assert.IsInstanceOfType(processor, typeof(ThompsonTechCandidateProcessor));
-        //     Candidate candidate = processor.Process(flowInput.BodyHtml);
-        //     Assert.AreEqual(TEST_COMPANY, candidate.Company);
-        //     Assert.AreEqual(TEST_NAME, candidate.Name);
-        //     Assert.AreEqual(TEST_PHONE, candidate.Phone);
-        //     Assert.AreEqual(TEST_EMAIL, candidate.EmailAddress);
-        // }
-
-        // [TestMethod]
-        // public void DoesDeserilaizeHireNetworksCandidateFlowMessage()
-        // {
-        //     CandidateChannel TEST_COMPANY = CandidateChannel.HireNetworks;
-        //     string TEST_NAME = "Preston Harden";
-
-        //     string curDir = Directory.GetCurrentDirectory();
-        //     string filePath = Path.Combine(curDir, "..\\..\\HireNetworksFlowInput.json");
-        //     string flowMessage = File.ReadAllText(filePath);
-
-        //     FlowIngest flowInput = JsonConvert.DeserializeObject<FlowIngest>(flowMessage);
-        //     ICandidateProcessor processor = new CandidateProcessorFacotry().CreateCandidateProcessor(flowInput.Company);
-
-        //     Assert.IsInstanceOfType(processor, typeof(HireNetworksCandidateProcessor));
-        //     Candidate candidate = processor.Process(flowInput.BodyHtml);
-        //     Assert.AreEqual(TEST_COMPANY, candidate.Company);
-        //     Assert.AreEqual(TEST_NAME, candidate.Name);
-        //     Assert.AreEqual(Constants.FIELD_DEFAULT, candidate.Phone);
-        //     Assert.AreEqual(Constants.FIELD_DEFAULT, candidate.EmailAddress);
-        // }
-
+            ICandidateProcessor processor = new CandidateProcessorFactory().CreateCandidateProcessor(flowInput.Company);
+            Assert.IsInstanceOfType(processor, typeof(StratfieldCandidateProcessor));       
+            Candidate candidate = processor.Process(flowInput.BodyHtml);
+            Assert.AreEqual("Stratfield", candidate.Company);
+            Assert.AreEqual("Jean-Patrick Guichard", candidate.Name);
+            Assert.AreEqual(Constants.FIELD_DEFAULT, candidate.Phone);
+            Assert.AreEqual(Constants.FIELD_DEFAULT, candidate.EmailAddress);          
+        }
     }
 }

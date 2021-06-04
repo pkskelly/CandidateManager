@@ -39,9 +39,5 @@ namespace CandidateManager.Core
             get => _phone;
             init => _phone = (Guard.Against.NullOrEmpty(value, nameof(Phone), $"{nameof(Phone)} must be provided!") ?? value);
         }
-
     }
-
-
-
 }
