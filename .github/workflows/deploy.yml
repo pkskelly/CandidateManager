@@ -31,9 +31,9 @@ jobs:
     - name: 'Resolve Project Dependencies Using Dotnet'
       shell: bash
       run: |
-        pushd './${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}'
-        dotnet build --configuration Release --output ./output
         func --help
+        pushd './${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}'
+        dotnet build --configuration Release --output ./output      
         popd
 
     # - name: Restore dependencies
