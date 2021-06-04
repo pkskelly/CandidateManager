@@ -27,14 +27,19 @@ namespace CandidateManager.Functions
             Candidate candidate = candidateProcessor.Process(flowInput.BodyHtml);
            
             // Log some information just in case 
-            logger.LogTrace($"Name: {candidate.Name}");
-            logger.LogTrace($"Email Address: {candidate.EmailAddress}");
-            logger.LogTrace($"Phone: {candidate.Phone}");
-
-            logger.LogTrace($"Blob Name: {flowInput.FileName}");
-            logger.LogTrace($"Returning flowOutput!");
+            logger.LogInformation($"Name: {candidate.Name}");
+            logger.LogInformation($"Email Address: {candidate.EmailAddress}");
+            logger.LogInformation($"Phone: {candidate.Phone}");
+            logger.LogInformation($"Blob Name: {flowInput.FileName}");
+            logger.LogInformation($"Returning flowOutput!");
             //added app offline settings in vsts
-            FlowOutput flowOutput = new FlowOutput() { FlowId = flowInput.FlowId, Company = flowInput.Company, Recruiter = flowInput.Recruiter, FileName = flowInput.FileName, Candidate = candidate };
+            FlowOutput flowOutput = new() { 
+                                            FlowId = flowInput.FlowId, 
+                                            Company = flowInput.Company, 
+                                            Recruiter = flowInput.Recruiter, 
+                                            FileName = flowInput.FileName, 
+                                            Candidate = candidate 
+                                          };
             return flowOutput;        
         }
     }
