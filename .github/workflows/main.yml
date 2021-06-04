@@ -20,6 +20,11 @@ jobs:
       with:
         dotnet-version: ${{ env.DOTNET_VERSION }}
 
+    - name: List Runtimes and Versions
+      run: |
+        dotnet --list-runtimes
+        dotnet --list-sdks
+
     - name: 'Resolve Project Dependencies Using Dotnet'
       shell: bash
       run: |
