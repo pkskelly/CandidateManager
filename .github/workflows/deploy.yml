@@ -21,6 +21,7 @@ jobs:
       shell: bash
       run: |
         dotnet --list-runtimes
+        dotnet --list-sdks
         
 
     # - name: Restore dependencies
