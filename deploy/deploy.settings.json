@@ -12,6 +12,7 @@
     "StorageSuffix":"stor",
     "CandidateHtmlQueue": "candidate-html",
     "CandidateQueue": "candidates",
+    "CandidateTable": "candidates",
     "ResumesContainer": "resumes"
 }
   

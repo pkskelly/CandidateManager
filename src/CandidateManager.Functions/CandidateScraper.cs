@@ -11,8 +11,7 @@ namespace CandidateManager.Functions
     public static class CandidateScraper
     {
         [Function(nameof(CandidateScraper))]
-        [QueueOutput(Constants.OUTPUT_QUEUE)]
-        public static FlowOutput Run([QueueTrigger(Constants.INPUT_QUEUE)] string queueMessage, FunctionContext context)
+        public static FlowOutputResult Run([QueueTrigger(Constants.INPUT_QUEUE)] string queueMessage, FunctionContext context)
         {
             var logger = context.GetLogger(nameof(CandidateScraper));
             logger.LogInformation($"C# Queue trigger function processed: {queueMessage}");
@@ -40,7 +39,14 @@ namespace CandidateManager.Functions
                                             FileName = flowInput.FileName, 
                                             Candidate = candidate 
                                           };
-            return flowOutput;        
+            CandidateProcessingEntity entity = new CandidateProcessingEntity() {
+                PartitionKey = Constants.OUTPUT_QUEUE,
+                RowKey = flowInput.FlowId,
+                Company = flowInput.Company,
+                Recruiter = flowInput.Recruiter,
+                FileName = flowInput.FileName
+            }; 
+            return new FlowOutputResult() {Output = flowOutput, CandidateProcessingEntity = entity};        
         }
     }
 }
