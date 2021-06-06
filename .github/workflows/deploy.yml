@@ -7,8 +7,10 @@ on:
 
 env:
   AZURE_FUNCTIONAPP_NAME: CandidateManager.Functions  # set this to your application's name
+  TESTAPP_PACKAGE_PATH: './src/CandidateManager.Tests'    # set path to test project 
   AZURE_FUNCTIONAPP_PACKAGE_PATH: './src/CandidateManager.Functions'    # set this to the path to your web app project, defaults to the repository root
-  DOTNET_VERSION: '5.0.x'              
+  DOTNET_VERSION: '5.0.x'     
+  CONFIGURATION: Release         
 
 jobs:
   build:
@@ -27,26 +29,21 @@ jobs:
       with:
         dotnet-version: ${{ env.DOTNET_VERSION }}
 
-    - name: List Runtimes
-      shell: bash
-      run: |
-        dotnet --list-runtimes
-        dotnet --list-sdks
-
     - name: 'Resolve Project Dependencies Using Dotnet'
       shell: bash
       run: |
         pushd './${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}'
-        dotnet build --configuration Release --output ./output      
+        dotnet build --configuration ${{ env.CONFIGURATION }} --output ./output      
         popd
 
-    # - name: Restore dependencies
-    #   run: dotnet restore
+    - name: 'Run unit tests '
+      shell: bash
+      run: |
+        pushd './${{ env.TESTAPP_PACKAGE_PATH }}'
+        dotnet test --configuration ${{ env.CONFIGURATION }}       
+        popd
 
-    # - name: Build
-    #   run: dotnet build --no-restore
-
-    # - name: Test
+    - name: Test
     #   run: dotnet test --no-build --verbosity normal
 
     - name: 'Run Azure Functions Action'
