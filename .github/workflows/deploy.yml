@@ -36,15 +36,12 @@ jobs:
         dotnet build --configuration ${{ env.CONFIGURATION }} --output ./output      
         popd
 
-    - name: 'Run unit tests '
+    - name: 'Run unit tests'
       shell: bash
       run: |
         pushd './${{ env.TESTAPP_PACKAGE_PATH }}'
         dotnet test --configuration ${{ env.CONFIGURATION }}       
         popd
-
-    - name: Test
-    #   run: dotnet test --no-build --verbosity normal
 
     - name: 'Run Azure Functions Action'
       uses: Azure/functions-action@v1
