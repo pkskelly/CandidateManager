@@ -8,6 +8,8 @@ on:
 env:
   AZURE_FUNCTIONAPP_NAME: CandidateManager.Functions  # set this to your application's name
   TESTAPP_PACKAGE_PATH: './src/CandidateManager.Tests'    # set path to test project 
+  TEST_TITLE: Test Run ${{github.run_number}}
+  TEST_FILE_NAME: ${{github.run_number}}.md
   AZURE_FUNCTIONAPP_PACKAGE_PATH: './src/CandidateManager.Functions'    # set this to the path to your web app project, defaults to the repository root
   DOTNET_VERSION: '5.0.x'     
   CONFIGURATION: Release         
@@ -40,8 +42,15 @@ jobs:
       shell: bash
       run: |
         pushd './${{ env.TESTAPP_PACKAGE_PATH }}'
-        dotnet test --configuration ${{ env.CONFIGURATION }}       
+        dotnet test --configuration ${{ env.CONFIGURATION }} --logger:"liquid.md;LogFileName=${{github.workspace}}/${{env.TEST_FILE_NAME}};Title=${{env.TEST_TITLE}};"      
         popd
+        
+      # upload report as build artifact 
+    - name: Upload a Build Artifact (Tests)
+      uses: actions/upload-artifact@v2
+      with:
+        name: 'Test Run'
+        path: ${{github.workspace}}/${{env.TEST_FILE_NAME}}
 
     - name: 'Run Azure Functions Action'
       uses: Azure/functions-action@v1
