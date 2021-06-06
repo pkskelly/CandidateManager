@@ -42,6 +42,7 @@ namespace CandidateManager.Functions
             CandidateProcessingEntity entity = new CandidateProcessingEntity() {
                 PartitionKey = Constants.OUTPUT_QUEUE,
                 RowKey = flowInput.FlowId,
+                FlowId = flowInput.FlowId,
                 Company = flowInput.Company,
                 Recruiter = flowInput.Recruiter,
                 FileName = flowInput.FileName

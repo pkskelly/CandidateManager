@@ -9,7 +9,7 @@ namespace CandidateManager.Core
         [QueueOutput(Constants.OUTPUT_QUEUE)]
         public FlowOutput Output { get; set; }
 
-        [TableOutput("OutputTable", Connection = "AzureWebJobsStorage")]
+        [TableOutput(Constants.OUTPUT_QUEUE, Connection = "AzureWebJobsStorage")]
         public CandidateProcessingEntity CandidateProcessingEntity { get; set; }
         
     }

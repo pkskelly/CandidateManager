@@ -10,6 +10,7 @@ namespace CandidateManager.Functions
         {
             this.PartitionKey = partitionKey;
             this.RowKey = rowKey;
+            this.FlowId = flowId;
             this.Company = company;
             this.Recruiter = recruiter;
             this.FileName = fileName;
@@ -17,6 +18,7 @@ namespace CandidateManager.Functions
         }
         public string PartitionKey { get; set; }
         public string RowKey { get; set; }
+        public string FlowId { get; set; } 
         public string Company { get; set; }
         public string Recruiter { get; set; }
         public string FileName { get; set; }
