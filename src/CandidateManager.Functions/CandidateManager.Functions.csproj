@@ -5,6 +5,15 @@
     <AzureFunctionsVersion>v3</AzureFunctionsVersion>
     <OutputType>Exe</OutputType>
     <_FunctionsSkipCleanOutput>true</_FunctionsSkipCleanOutput>
+     <RootNamespace>CandidateManager.Functions</RootNamespace>
+		<AssemblyName>CandidateManager.Functions</AssemblyName>
+		<Version>1.0.0</Version>
+		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+		<Copyright>Pete Skelly 2021</Copyright>
+		<Authors>Pete Skelly</Authors>
+		<Description>The Azure Functions components for the CandidateManager application.</Description>
+		<RepositoryUrl>https://github.com/pkskelly/CandidateManager</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.Azure.Functions.Worker.Extensions.Storage" Version="4.0.4" />
