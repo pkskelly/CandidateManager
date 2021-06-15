@@ -2,6 +2,15 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
+     <RootNamespace>CandidateManager.Core</RootNamespace>
+		<AssemblyName>CandidateManager.Core</AssemblyName>
+		<Version>1.0.0</Version>
+		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+		<Copyright>Pete Skelly 2021</Copyright>
+		<Authors>Pete Skelly</Authors>
+		<Description>The core components for the CandidateManager application.</Description>
+		<RepositoryUrl>https://github.com/pkskelly/CandidateManager</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
   </PropertyGroup>
 
   <ItemGroup>
